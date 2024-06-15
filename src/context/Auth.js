@@ -6,10 +6,8 @@ export const AuthContext = createContext();
 const setSession = (accessToken) => {
   if (accessToken) {
     window.localStorage.setItem("creatturAccessToken", accessToken);
-    // Set additional session information if needed
   } else {
     window.localStorage.removeItem("creatturAccessToken");
-    // Remove additional session information if needed
   }
 };
 
@@ -20,18 +18,36 @@ const checkLogin = () => {
 
 export default function AuthProvider(props) {
   const [isLogin, setIsLogin] = useState(checkLogin());
-  const [endTime, setEndtime] = useState(null);
+  const [endTime, setEndTime] = useState(() => {
+    const storedEndTime = window.localStorage.getItem("otpEndTime");
+    return storedEndTime ? parseInt(storedEndTime, 10) : null;
+  });
   const [isLoading, setIsLoading] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(null);
+  const [timeLeft, setTimeLeft] = useState(() => {
+    const storedEndTime = window.localStorage.getItem("otpEndTime");
+    return storedEndTime
+      ? calculateTimeLeft(parseInt(storedEndTime, 10))
+      : null;
+  });
 
   useEffect(() => {
     if (endTime) {
-      const timer = setTimeout(() => {
-        setTimeLeft(calculateTimeLeft(endTime));
+      window.localStorage.setItem("otpEndTime", endTime);
+      const timer = setInterval(() => {
+        const timeLeft = calculateTimeLeft(endTime);
+        setTimeLeft(timeLeft);
+        if (timeLeft.total <= 0) {
+          window.localStorage.removeItem("otpEndTime");
+          setEndTime(null);
+          setTimeLeft(null);
+          clearInterval(timer);
+        }
       }, 1000);
-      return () => clearTimeout(timer);
+      return () => clearInterval(timer);
+    } else {
+      window.localStorage.removeItem("otpEndTime");
     }
-  }, [endTime, timeLeft]);
+  }, [endTime]);
 
   const userLogIn = (token) => {
     setSession(token);
@@ -47,7 +63,7 @@ export default function AuthProvider(props) {
     isLogin,
     isLoading,
     timeLeft,
-    setEndtime,
+    setEndTime,
     setTimeLeft,
     userLogIn,
     userLogOut,

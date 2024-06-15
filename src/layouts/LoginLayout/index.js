@@ -15,10 +15,13 @@ const styles = {
     background: "#FFF",
     border: "1px solid rgba(229, 229, 229, 1)",
     "@media(max-width:600px)": {
-      padding: "20px",
+      padding: "0 20px",
     },
     "@media(max-width:900px)": {
-      margin: "auto 10px",
+      margin: "0px 10px",
+      border: "none",
+      padding: "0 25px",
+      minWidth:"auto"
     },
   },
   logo: {
@@ -35,16 +38,26 @@ const styles = {
     height: "100vh",
     alignItems: "center",
     display: "flex",
-    scroll: "auto",
+    overflow: "auto",
     paddingTop: "62px",
     "@media(max-width:900px)": {
       display: "grid",
+      alignItems: "baseline"
     },
   },
 };
 
 const ImageGroup = styled("img")({
   width: "100%",
+});
+const ImageLayOut = styled("img")({
+  width: "100%",
+  maxWidth: "170px",
+  marginTop: "-30px",
+  display:"none",
+  "@media(max-width:900px)": {
+    display: "block",
+  },
 });
 const ManageLayout = styled(Box)({
   background: "rgb(255 253 243)",
@@ -68,12 +81,18 @@ const LoginLayout = ({ children }) => {
             </ManageLayout>
           </Box>
           <Box sx={styles.content}>
+            <Box sx={{display:"flex", justifyContent:"center"}}>
+              <ImageLayOut alt="" src="images/mobileLayOut.png" />
+            </Box>
             <Box
               sx={{ display: "flex", justifyContent: "center" }}
               onClick={() => navigate("/")}
             >
-              {location.pathname === "/add-child" ? "" :
-              <img style={styles.logo} src="images/Logo.png" alt="" />}
+              {location.pathname === "/add-child" ? (
+                ""
+              ) : (
+                <img style={styles.logo} src="images/Logo.png" alt="" />
+              )}
             </Box>
             <Box>{children}</Box>
           </Box>

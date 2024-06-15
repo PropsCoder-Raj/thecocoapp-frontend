@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Box,
   Button,
@@ -15,11 +15,14 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ButtonCircularProgress from "src/component/ButtonCircularProgress";
 import toast from 'react-hot-toast';
+import { AuthContext } from "src/context/Auth";
+import moment from "moment";
 
 function Login(props) {
   const [isRememberMe, setIsRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+   const auth = useContext(AuthContext);
   const formInitialSchema = isRememberMe
     ? {
       email: "",
@@ -43,34 +46,14 @@ function Login(props) {
             type: "login",
           },
         });
-       
+       auth.setEndTime(moment().add(3, "m").unix());
       }
     } catch (error) {
       toast.error(error.response.data.message);
       setIsLoading(false);
     }
   };
-  const generateOtp = async (values) => {
-    try {
-      const res = await axios.post(ApiConfig.signupGenerateOtp, {
-        email: values,
-      });
 
-      if (res.status === 200) {
-       toast.success(res.data.message);
-       setIsLoading(false);
-       navigate("/verify", {
-         state: {
-           email: values.email,
-           type: "login",
-         },
-       });
-      }
-    } catch (error) {
-      toast.error(error.response.data.message);
-      setIsLoading(false);
-    }
-  };
   return (
     <Page title="Login">
       <Box sx={{ display: "grid", gap: "13px", textAlign: "center" }}>

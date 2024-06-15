@@ -43,7 +43,7 @@ function SignUp(props) {
           type: "signUp",
         },
       });
-      auth.setEndtime(moment().add(3, "m").unix());
+      auth.setEndTime(moment().add(3, "m").unix());
       }
     } catch (error) {
       toast.error(error.response.data.message);

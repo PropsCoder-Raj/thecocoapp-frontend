@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { Box, Button, FormControl, Grid, Typography } from "@mui/material";
 import { Form, Formik } from "formik";
 import * as yup from "yup";
@@ -35,7 +35,6 @@ function Verify(props) {
   const location = useLocation();
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
-  const email = window.sessionStorage.getItem("email");
 
   const handleFormSubmit = async (values) => {
     setIsLoading(true);
@@ -69,13 +68,13 @@ function Verify(props) {
     const url = ApiConfig.loginGenerateOtp;
     try {
       const res = await axios.post(url, {
-        email: location?.state?.email?.email,
+        email: location?.state?.email.email || location?.state?.email,
       });
 
       if (res.status === 200) {
         toast.success(res.data.message);
         setIsLoading(false);
-        auth.setEndtime(moment().add(3, "m").unix());
+        auth.setEndTime(moment().add(3, "m").unix());
       }
     } catch (error) {
       toast.error(error.response.data.message);
@@ -169,15 +168,18 @@ function Verify(props) {
                     <Typography
                       variant="h3"
                       style={{
-                        color: "#434547",
+                        color:"rgba(60, 60, 60, 1)",
                         fontSize: "18px",
                         fontStyle: "normal",
                         fontWeight: "500",
                         lineHeight: "24px",
                       }}
-                    >
+                    >                   
+                       Resend OTP in           
+                      &nbsp;
                       {auth.timeLeft?.minutes?.toString().padStart(2, "0")}:
                       {auth.timeLeft?.seconds?.toString().padStart(2, "0")}
+                      &nbsp;s
                     </Typography>
                   ) : (
                     <Box

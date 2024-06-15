@@ -31,7 +31,7 @@ export default function TopBar() {
   const navigate = useNavigate();
   const previousPathname = usePreviousPathname();
  const navigateToPrevious = () => {
-   if (previousPathname) {
+   if (previousPathname && location.pathname !== previousPathname) {
      navigate(previousPathname);
    } else {
      navigate("/");

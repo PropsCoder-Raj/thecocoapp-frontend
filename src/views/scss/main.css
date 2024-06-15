@@ -4,6 +4,15 @@ body {
     font-family: 'Nunito Sans', sans-serif;
 }
 
+
+.sticky {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: 70%; /* Adjust this value based on how far down the element should "stick" */
+    z-index: 1000; /* Optional: Ensure the element stays above other content */
+    background-color: white; /* Optional: Maintain background color */
+  }
+
 ::-webkit-scrollbar {
     width: 8px;
     height: 6px;

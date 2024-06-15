@@ -15,7 +15,7 @@ const styles = {
     width: "100%",
     minHeight: "100vh",
   },
-  rootLight:{
+  rootLight: {
     background: "#FFF;",
     height: "100%",
     overflow: "hidden",
@@ -62,18 +62,15 @@ const styles = {
     height: "100%",
     overflow: "hidden",
     position: "relative",
-    padding: "64px 0px 0px 0px",
-    // [theme.breakpoints.down('lg')]: {
-    //   padding: "75px 0px 0px 0px",
-    // },
-    // [theme.breakpoints.down('md')]: {
-    //   padding: "75px 0px 0px 0px",
-    // },
-    // [theme.breakpoints.down('sm')]: {
-    //   padding: "75px 0px 0px 0px",
-    // },
+    padding: "94px 0px 0px 0px",
+    "@media (max-width:900px)": {
+      paddingTop: "84px !important",
+    },
+    "@media (max-width:600px)": {
+      paddingTop: "77px !important",
+    },
   },
-  contentKyc:{
+  contentKyc: {
     flex: "1 1 auto",
     height: "100%",
     overflow: "hidden",
@@ -82,7 +79,7 @@ const styles = {
     // [theme.breakpoints.down('lg')]: {
     //   padding: "30px 28px 30px",
     // },
-  }
+  },
 };
 
 const DashboardLayout = ({ children }) => {
