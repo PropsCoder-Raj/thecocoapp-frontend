@@ -1,0 +1,60 @@
+import { lazy } from "react";
+import HomeLayout from "src/layouts/HomeLayout";
+import LoginLayout from "./layouts/LoginLayout";
+import DashboardLayout from "./layouts/DashboardLayout";
+
+export const routes = [
+  {
+    exact: true,
+    path: "/",
+    layout: HomeLayout,
+    component: lazy(() => import("src/views/pages/home/Home")),
+  },
+  {
+    exact: true,
+    path: "/login",
+    layout: LoginLayout,
+    component: lazy(() => import("src/views/auth/login/Login")),
+  },
+  {
+    exact: true,
+    path: "/verify",
+    layout: LoginLayout,
+    component: lazy(() => import("src/views/auth/verify-otp/Verify")),
+  },
+  {
+    exact: true,
+    path: "/sign-up",
+    layout: LoginLayout,
+    component: lazy(() => import("src/views/auth/signUp/SignUp")),
+  },
+  {
+    exact: true,
+    path: "/add-child",
+    layout: LoginLayout,
+    component: lazy(() => import("src/views/auth/add-child/index")),
+  },
+  {
+    exact: true,
+    path: "/dashboard",
+    layout: DashboardLayout,
+    component: lazy(() => import("src/views/pages/dashboard/Dashboard")),
+  },
+  {
+    exact: true,
+    path: "/privacy-policy",
+    layout: HomeLayout,
+    component: lazy(() => import("src/views/pages/license/privacyPolicy")),
+  },
+  {
+    exact: true,
+    path: "/terms&condition",
+    layout: HomeLayout,
+    component: lazy(() => import("src/views/pages/license/termsCondition")),
+  },
+  {
+    exact: true,
+    path: "/404",
+    component: lazy(() => import("src/views/errors/NotFound")),
+  },
+];
