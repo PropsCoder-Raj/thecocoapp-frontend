@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
   FormHelperText,
   Grid,
-  InputLabel,
   MenuItem,
   Select,
   TextField,
@@ -21,8 +20,6 @@ import { LuMinusCircle } from "react-icons/lu";
 import ButtonCircularProgress from "src/component/ButtonCircularProgress";
 import toast from "react-hot-toast";
 import { GrAddCircle } from "react-icons/gr";
-
-import { parse, isBefore, subYears, format } from 'date-fns';
 
 function AddChild(props) {
   const [isLoading, setIsLoading] = useState(false);
@@ -105,16 +102,8 @@ function AddChild(props) {
             children: yup.array().of(
               yup.object().shape({
                 name: yup.string().required("Please enter your full name."),
-                schoolId: yup.number().oneOf(schoolIds, "Please enter a valid school id.").required("Please enter your school id."),
-                dob: yup.string()
-                        .required("Date of birth is required.")
-                        .test('dob', 'Child must be at least 5 years old.', (value) => {
-                          console.log("value: ", value);
-                          // const parsedDate = parse(value, 'dd/MM/yyyy', new Date());
-                          const fiveYearsAgo = subYears(new Date(), 5);
-                          console.log("parsedDate: ",value);
-                          return isBefore(value, fiveYearsAgo);
-                        }),
+                schoolId: yup.string(),
+                dob: yup.string().required("Date of birth is required."),
                 gender: yup.string().required("Please select a gender."),
                 standard: yup.string().required("Please choose a standard."),
               })

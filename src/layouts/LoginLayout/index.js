@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { Grid, Box, Container } from "@mui/material";
+import {  Box, Container } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import TopBar from "./TopBar";
 import styled from "@emotion/styled";
@@ -15,12 +15,12 @@ const styles = {
     background: "#FFF",
     border: "1px solid rgba(229, 229, 229, 1)",
     "@media(max-width:600px)": {
-      padding: "0 20px",
+      padding: "0 0px",
     },
     "@media(max-width:900px)": {
       margin: "0px 10px",
       border: "none",
-      padding: "0 25px",
+      padding: "0 0px",
       minWidth:"auto"
     },
   },

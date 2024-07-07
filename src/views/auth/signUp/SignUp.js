@@ -46,7 +46,10 @@ function SignUp(props) {
       auth.setEndTime(moment().add(3, "m").unix());
       }
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(
+        error?.response?.data?.message ||
+          "Something went wrong please try again later"
+      );
       setIsLoading(false);
     }
   };

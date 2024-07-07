@@ -7,13 +7,13 @@ import PageLoading from "./PageLoading";
 export default function AuthGuard(props) {
   const { children } = props;
   const navigate = useNavigate();
-  const auth = useContext(AuthContext);
+  const auth = localStorage.getItem("token");
   
   useEffect(() => {
-    if (!auth.userLoggedIn) {
+    if (!auth) {
       navigate("/login");
     }
-  }, [auth.userLoggedIn, navigate]);
+  }, [auth, navigate]);
 
-  return auth.userLoggedIn ? <>{children}</> : <PageLoading />;
+  return auth ? <>{children}</> : <PageLoading />;
 }

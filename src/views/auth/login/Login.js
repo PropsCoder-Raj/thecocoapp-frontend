@@ -19,17 +19,19 @@ import { AuthContext } from "src/context/Auth";
 import moment from "moment";
 
 function Login(props) {
-  const [isRememberMe, setIsRememberMe] = useState(false);
+  // const [isRememberMe, setIsRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
    const auth = useContext(AuthContext);
-  const formInitialSchema = isRememberMe
-    ? {
+  const formInitialSchema = 
+  // isRememberMe
+  //   ? 
+    {
       email: "",
     }
-    : {
-      email: window.sessionStorage.getItem("email") || "",
-    };
+    // : {
+    //   email: window.sessionStorage.getItem("email") || "",
+    // };
 
   const handleFormSubmit = async (values) => {
     setIsLoading(true);
@@ -49,7 +51,10 @@ function Login(props) {
        auth.setEndTime(moment().add(3, "m").unix());
       }
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(
+        error?.response?.data?.message ||
+          "Something went wrong please try again later"
+      );
       setIsLoading(false);
     }
   };
